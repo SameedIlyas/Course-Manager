@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Course Manager Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend for the Course-Manager application. It is a web application built using React and provides an interface for users to interact with the course management system.
 
-## Available Scripts
+![Homepage](https://github.com/SameedIlyas/Course-Manager/assets/127698326/825fc1ac-37d4-4408-a960-32780bbd3b63)
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+- **Technology Stack:** React, Node.js, Bootstrap
+- **Purpose:** Provides a user interface for managing and enrolling in courses.
+- **Port:** The frontend is available on port `3000`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js
+- Docker (optional, for containerized setup)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running the Application
 
-### `npm run build`
+You can run the frontend application using Docker or directly with Node.js.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Using Docker
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Ensure Docker is installed and running on your system.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Navigate to the `Frontend` directory of the project.
 
-### `npm run eject`
+3. Build the Docker image using the Dockerfile:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```sh
+   docker build -t course-manager-frontend .
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Run the docker containerL:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```sh
+   docker run -d -p 3000:3000 --name course-manager-frontend course-manager-frontend
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Using Node.js
 
-## Learn More
+1. Ensure Node.js is installed on your system.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Navigate to the Frontend directory of the project.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install the dependencies:
 
-### Code Splitting
+```sh
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. Start the application:
 
-### Analyzing the Bundle Size
+```sh
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project Structure
 
-### Making a Progressive Web App
+The frontend project is organized as follows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **public/**: Contains static assets and the HTML file.
+  - **index.html**: The main HTML file.
+  - **favicon.ico**: The favicon for the application.
 
-### Advanced Configuration
+- **src/**: Contains the React components, styles, and other source files.
+  - **api/**: Contains API configuration files.
+    - **axiosConfig.js**: Configures Axios for making HTTP requests to the backend.
+  - **components/**: Contains React components.
+    - **course/**: Components related to course management.
+    - **enrolledCourses/**: Components related to enrolled courses.
+    - **header/**: Header components.
+    - **home/**: Home page components.
+    - **login/**: Login components.
+    - **register/**: Registration components.
+    - **spinner/**: Loading spinner components.
+    - **video/**: Video components.
+    - **Layout.js**: Layout component for the application.
+    - **RequiredAuth.js**: Component for handling required authentication.
+  - **context/**: Contains context providers.
+  - **hooks/**: Contains custom React hooks.
+  - **images/**: Contains image assets.
+  - **App.js**: The main App component.
+  - **App.css**: Styles for the App component.
+  - **index.js**: The entry point of the React application.
+  - **index.css**: Global styles for the application.
+  - **logo.svg**: The logo of the application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+This structure helps maintain a clear separation of concerns, making the application easier to manage and extend.
 
-### Deployment
+## API Integration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The frontend communicates with the backend API to manage courses and user enrollments. Below are some key points on how the API integration is handled:
 
-### `npm run build` fails to minify
+### Axios Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Axios is configured to handle HTTP requests to the backend API. The base URL and default headers are set up to facilitate communication with the backend.
+
+### Authentication
+
+User authentication is handled using Basic Authentication. The login functionality captures the username and password, encodes them, and sends them as part of the authorization header in the request.
+
+### API Endpoints
+
+The frontend interacts with various API endpoints provided by the backend to perform operations such as user login, fetching course details, and managing enrollments. These endpoints are called using Axios with the appropriate request configurations.
+
+### Example API Calls
+
+- **Login:** Authenticates the user and retrieves user details.
+- **Fetch User Data:** Retrieves the currently logged-in user's information.
+- **Fetch Courses:** Retrieves a list of all available courses.
+- **Fetch Enrolled Courses:** Retrieves a list of courses the user is enrolled in.
+
+![Register](https://github.com/SameedIlyas/Course-Manager/assets/127698326/463d79ba-95e9-4f62-acda-983d3c4d936d)
+
+By following this structure, the frontend can effectively communicate with the backend API to provide a seamless user experience.
